@@ -24,7 +24,7 @@ def index():
 def register():
     data = request.get_json()
     username = data.get('username')
-    password = data.get('password')  # Em uma aplicação real, você deve tratar e armazenar a senha de forma segura!
+    password = data.get('password')  
 
     if User.query.filter_by(username=username).first():
         return jsonify({"message": "Username already taken!"}), 400
@@ -75,7 +75,7 @@ def dashboard():
 
     if request.method == 'POST':
         username = request.form.get('username')
-        password = request.form.get('password')  # Observe que não estamos usando a senha neste exemplo
+        password = request.form.get('password') 
         if User.query.filter_by(username=username).first():
             message = "Nome de usuário já existe!"
         else:
@@ -97,8 +97,6 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     }
 )
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)

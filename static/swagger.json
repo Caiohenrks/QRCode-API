@@ -8,10 +8,10 @@
       "contact": {
         "name": "Suporte",
         "url": "",
-        "email": "suporte@example.com"
+        "email": "caiohenrks@outlook.com"
       }
     },
-    "host": "127.0.0.1:5000",
+    "host": "192.168.15.100:5000",
     "basePath": "/",
     "schemes": [
       "http"

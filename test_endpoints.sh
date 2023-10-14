@@ -45,7 +45,7 @@ response_body=$(echo "$response" | head -n -1)
 echo "===== RESPONSE FROM /generate_qrcode ====="
 echo "HTTP Code: $http_code"
 echo "Response Body:"
-echo "$response_body"
+# echo "$response_body"
 echo "=========================================="
 
 if [[ $http_code -ne 200 && $http_code -ne 401 ]]; then

@@ -25,6 +25,20 @@ pipeline {
             }
         }
 
+        stage('Push para Nexus') {
+            steps {
+                script {
+                    def nexusUrl = '192.168.15.100:8082'
+                    def repoName = 'docker'
+                    def nexusCredentials = 'admin:051014'
+                    
+                    sh "docker login -u admin -p 051014 ${nexusUrl}"
+                    sh "docker tag qrcodeapi ${nexusUrl}/${repoName}:latest"
+                    sh "docker push ${nexusUrl}/${repoName}:latest"
+                }
+            }
+        }
+
         stage('Test Endpoints') {
             steps {
                 sleep(time: 10, unit: 'SECONDS')

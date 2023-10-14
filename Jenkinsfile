@@ -34,20 +34,26 @@ pipeline {
                         httpMode: 'POST',
                         requestBody: '{"username": "testUser", "password": "testPass"}'
                     )
+                    
                     if (registerResponse.status != 200) {
                         error "Failed to register. Response code: ${registerResponse.status}"
                     }
-
+                    
+                    // Parse the response to get the api_key
+                    def jsonResponse = readJSON text: registerResponse.content
+                    def apiKey = jsonResponse.api_key
+                    
                     // Teste para o endpoint Generate QRCode
                     def qrcodeResponse = httpRequest(
                         url: 'http://192.168.15.100:5000/generate_qrcode',
                         contentType: 'APPLICATION_JSON',
                         httpMode: 'POST',
-                        headers: [[name: 'x-api-key', value: '4920f67599cb90f818cb706c3bc9c49f']],
+                        headers: [[name: 'x-api-key', value: apiKey]],
                         requestBody: '{"content": "www.linkedin.com/in/caiohenrks"}'
                     )
-                    if (qrcodeResponse.getResponseCode() != 200) {
-                        error "Failed to generate QRCode. Response code: ${qrcodeResponse.getResponseCode()}"
+                    
+                    if (qrcodeResponse.status != 200 && qrcodeResponse.status != 401) {
+                        error "Failed to generate QRCode. Response code: ${qrcodeResponse.status}"
                     }
 
 

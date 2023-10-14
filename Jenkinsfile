@@ -33,9 +33,10 @@ pipeline {
                         httpMode: 'POST',
                         requestBody: '{"username": "testUser", "password": "testPass"}'
                     )
-                    if (registerResponse.getResponseCode() != 200) {
-                        error "Failed to register. Response code: ${registerResponse.getResponseCode()}"
+                    if (registerResponse.status != 200) {
+                        error "Failed to register. Response code: ${registerResponse.status}"
                     }
+
 
                     // Teste para o endpoint Generate QRCode
                     def qrcodeResponse = httpRequest(

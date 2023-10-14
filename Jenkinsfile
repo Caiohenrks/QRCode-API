@@ -27,6 +27,7 @@ pipeline {
 
         stage('Test Endpoints') {
             steps {
+                sleep(time: 10, unit: 'SECONDS')
                 sh 'sudo chmod +x test_endpoints.sh'
                 sh './test_endpoints.sh'
             }

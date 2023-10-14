@@ -1,4 +1,5 @@
 import groovy.json.JsonSlurper
+
 pipeline {
     agent any
 
@@ -28,6 +29,7 @@ pipeline {
             steps {
                 script {
                     sleep(time: 10, unit: 'SECONDS')
+                    
                     // Teste para o endpoint Register
                     def registerResponse = httpRequest(
                         url: 'http://192.168.15.100:5000/register',
@@ -57,12 +59,8 @@ pipeline {
                     if (qrcodeResponse.status != 200 && qrcodeResponse.status != 401) {
                         error "Failed to generate QRCode. Response code: ${qrcodeResponse.status}"
                     }
-
-
-                    
                 }
             }
         }
-    
     }
 }

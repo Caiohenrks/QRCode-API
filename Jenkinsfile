@@ -21,7 +21,36 @@ pipeline {
                 sh 'docker build -t qrcodeapi .'
                 sh 'docker run -d -p 5000:5000 --name qrcodeapi qrcodeapi'
             }
-        }   
+        }
+
+        stage('Test Endpoints') {
+            steps {
+                script {
+                    // Teste para o endpoint Register
+                    def registerResponse = httpRequest(
+                        url: 'http://192.168.15.100:5000/register',
+                        contentType: 'APPLICATION_JSON',
+                        httpMode: 'POST',
+                        requestBody: '{"username": "testUser", "password": "testPass"}'
+                    )
+                    if (registerResponse.getResponseCode() != 200) {
+                        error "Failed to register. Response code: ${registerResponse.getResponseCode()}"
+                    }
+
+                    // Teste para o endpoint Generate QRCode
+                    def qrcodeResponse = httpRequest(
+                        url: 'http://192.168.15.100:5000/generate_qrcode',
+                        contentType: 'APPLICATION_JSON',
+                        httpMode: 'POST',
+                        headers: [[name: 'x-api-key', value: '4920f67599cb90f818cb706c3bc9c49f']],
+                        requestBody: '{"content": "www.linkedin.com/in/caiohenrks"}'
+                    )
+                    if (qrcodeResponse.getResponseCode() != 200) {
+                        error "Failed to generate QRCode. Response code: ${qrcodeResponse.getResponseCode()}"
+                    }
+                }
+            }
+        }
     
     }
 }

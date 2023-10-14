@@ -25,7 +25,7 @@ pipeline {
             }
         }
 
-        stage('Push para Nexus') {
+        stage('Push Nexus') {
             steps {
                 script {
                     def nexusUrl = '192.168.15.100:8082'

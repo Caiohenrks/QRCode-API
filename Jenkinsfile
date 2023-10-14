@@ -27,35 +27,8 @@ pipeline {
 
         stage('Test Endpoints') {
             steps {
-                script {
-                    sleep(time: 10, unit: 'SECONDS')
-                    
-                    // Teste para o endpoint Register
-                    def registerResponse = httpRequest(
-                        url: 'http://192.168.15.100:5000/register',
-                        contentType: 'APPLICATION_JSON',
-                        httpMode: 'POST',
-                        requestBody: '{"username": "testUser", "password": "testPass"}'
-                    )
-                    
-                    if (registerResponse.status != 200) {
-                        error "Failed to register. Response code: ${registerResponse.status}"
-                    }
-                    
-                    
-                    // Teste para o endpoint Generate QRCode
-                    def qrcodeResponse = httpRequest(
-                        url: 'http://192.168.15.100:5000/generate_qrcode',
-                        contentType: 'APPLICATION_JSON',
-                        httpMode: 'POST',
-                        headers: [[name: 'x-api-key', value: 'apiKey']],
-                        requestBody: '{"content": "www.linkedin.com/in/caiohenrks"}'
-                    )
-                    
-                    if (qrcodeResponse.status != 200 && qrcodeResponse.status != 401) {
-                        error "Failed to generate QRCode. Response code: ${qrcodeResponse.status}"
-                    }
-                }
+                sh 'sudo chmod +x test_endpoints.sh'
+                sh './test_endpoints.sh'
             }
         }
     }

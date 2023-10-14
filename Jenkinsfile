@@ -42,17 +42,13 @@ pipeline {
                         error "Failed to register. Response code: ${registerResponse.status}"
                     }
                     
-                    // Parse the response to get the api_key
-                    def slurper = new JsonSlurper()
-                    def jsonResponse = slurper.parseText(registerResponse.content)
-                    def apiKey = jsonResponse.api_key
                     
                     // Teste para o endpoint Generate QRCode
                     def qrcodeResponse = httpRequest(
                         url: 'http://192.168.15.100:5000/generate_qrcode',
                         contentType: 'APPLICATION_JSON',
                         httpMode: 'POST',
-                        headers: [[name: 'x-api-key', value: apiKey]],
+                        headers: [[name: 'x-api-key', value: 'apiKey']],
                         requestBody: '{"content": "www.linkedin.com/in/caiohenrks"}'
                     )
                     

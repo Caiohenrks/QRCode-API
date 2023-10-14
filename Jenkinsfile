@@ -28,7 +28,7 @@ pipeline {
                 script {
                     // Verificar o endpoint /register
                     def registerResponse = sh(script: '''
-                    curl -o /dev/null -s -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{"username": "testUser", "password": "testPass"}' http://192.168.15.100:5000/register
+                    curl -o /dev/null -s -w "%{http_code}" -X POST -H 'Content-Type: application/json' -d '{"username": "testUser", "password": "testPass"}' http://192.168.15.100:5000/register
                     ''', returnStdout: true).trim()
 
                     if (registerResponse != "200") {

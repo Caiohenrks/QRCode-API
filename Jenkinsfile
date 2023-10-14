@@ -28,7 +28,7 @@ pipeline {
                 script {
                     // Verificar o endpoint /register
                     def registerResponse = sh(script: '''
-                    curl -o /dev/null -s -w "%{http_code}" -X POST -H "Content-Type: application/json" -d '{"username": "testUser", "password": "testPass"}' http://192.168.15.100:5000/register
+                    curl -o /dev/null -s -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{"username": "testUser", "password": "testPass"}' http://192.168.15.100:5000/register
                     ''', returnStdout: true).trim()
 
                     if (registerResponse != "200") {
@@ -37,7 +37,7 @@ pipeline {
                     
                     // Verificar o endpoint /generate_qrcode
                     def qrcodeStatusCode = sh(script: '''
-                    curl -o /dev/null -s -w "%{http_code}" -X POST -H "Content-Type: application/json" -H "x-api-key: 4920f67599cb90f818cb706c3bc9c49f" -d '{"content":"www.linkedin.com/in/caiohenrks"}' http://192.168.15.100:5000/generate_qrcode
+                    curl -o /dev/null -s -w "%{http_code}" -X POST -H 'Content-Type: application/json' -H 'x-api-key: 4920f67599cb90f818cb706c3bc9c49f' -d '{"content":"www.linkedin.com/in/caiohenrks"}' http://192.168.15.100:5000/generate_qrcode
                     ''', returnStdout: true).trim()
 
                     if (qrcodeStatusCode != "200") {

@@ -1,3 +1,4 @@
+import groovy.json.JsonSlurper
 pipeline {
     agent any
 
@@ -40,7 +41,8 @@ pipeline {
                     }
                     
                     // Parse the response to get the api_key
-                    def jsonResponse = readJSON text: registerResponse.content
+                    def slurper = new JsonSlurper()
+                    def jsonResponse = slurper.parseText(registerResponse.content)
                     def apiKey = jsonResponse.api_key
                     
                     // Teste para o endpoint Generate QRCode

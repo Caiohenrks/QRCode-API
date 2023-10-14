@@ -26,6 +26,7 @@ pipeline {
         stage('Test Endpoints') {
             steps {
                 script {
+                    sleep(time: 30, unit: 'SECONDS')
                     // Teste para o endpoint Register
                     def registerResponse = httpRequest(
                         url: 'http://192.168.15.100:5000/register',

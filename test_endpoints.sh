@@ -53,4 +53,10 @@ if [[ $http_code -ne 200 && $http_code -ne 401 ]]; then
     exit 1
 fi
 
+# Extrai o conteúdo do QRCode da resposta
+qrcode_content=$(echo "$response_body" | base64)
+
+echo "QRCode Content (Base64):"
+echo "$qrcode_content"
+
 echo "Script completed successfully!"

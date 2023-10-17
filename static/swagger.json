@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
       "version": "1.0.0",
-      "title": "API de Geração de QR Code",
+      "title": "API de Geração de QR Code -- teste",
       "description": "API para gerar QR Codes e gerenciar usuários",
       "termsOfService": "",
       "contact": {
